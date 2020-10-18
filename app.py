@@ -93,7 +93,7 @@ def Nitrous():
 
             dataframes.append(df_user)
             # to export  to excel 
-            dataframes[i].to_excel(str(user)+'_df.xlsx')
+            #dataframes[i].to_excel(str(user)+'_df.xlsx')
     N=len(users)-len(banned_list)
     x=pd.to_datetime(dataframes[1][['year', 'month', 'day', 'hour', 'minute']])
     g=pd.DataFrame(x,columns=['date'])
@@ -246,10 +246,7 @@ def Nitrous():
     ########################################################## Dash        
         
 
-    app =dash.Dash()
-    app = dash.Dash(__name__)
-    server = app.server
-    app.title = 'Nitrous Users Dashboard'
+
 
 
 
@@ -332,7 +329,10 @@ def Nitrous():
         line.add_trace(go.Scatter(x=dataforml[input_value].index, y=Final[input_value]['LeaderShip'].values           ,mode='lines+markers',name='LeaderShip'))
         return line  
 
-
+app =dash.Dash()
+app = dash.Dash(__name__)
+server = app.server
+app.title = 'Nitrous Users Dashboard'
 Nitrous() 
 
   
