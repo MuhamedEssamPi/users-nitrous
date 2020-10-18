@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "nitrous-application",
+  "private_key_id": "e8049388fc9794370e9b6761e46a06a356ac948e",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCbTcg4LeTznBzw\nc0oRZEXjRKIvlPCDWdu8UM5zIgVjNdebb3naKtbDvEjxqfOz9okIrtoMfzXA4GKB\nHRl2j7GcIxtDdkL6tsrwSKKYMYFS1EkVto/+JRs8ypPIoVWFrDwYulYnq4gF1bDH\n4pYSgPh7SVVQrCBTj7MEMotB5qwmmvocNl928w0qu5fTf9Tm36iBgFVXDT5q4aa1\nk3YjWVgR4jgzwGSSnLlhEjdTqaoASCM6pVGS5qe+NCz92HA0oBqp/FChLJcdbP2C\nTVKETz6m68HIdirrSoj4xtbSqc0/NlKszk32FvhEroqPcud1YCICZsqGeCPIZsZR\nmIlGoUn5AgMBAAECggEAHIolNqm8bsYsDUXqgRqvuy2ULnFM555+QnOJFOBWJB6z\nYgWQ23ZO5EZ4Eyz7s4ElOprDSFOiQbEaeQardL3AUmSjMHkNovwvfAulEZnbXajU\nS3Cysm4IPNovYUnAqSF3I8YuafjcNNJJu9nYYUshHqrhykLvZ9u69pUBQVmOHkPI\nP4VJV9asnr4yy+jj3dB7/TZ+My316stRi0aFctp4W8T7wn9YYDC7vLlMUF6sDzoi\n2ItlHdjQ6Oat6HxX/qIfM1easONxBPlDFHTYAruoMmjhV5Nff9fvGpTeg3eBGmh2\n/CYOvJMfZ+9CzkhntyZtps1+3gCIpRPFAlwu0P7UXwKBgQDRGhgAvykSf5kJP1qr\n4sQ/nzZMAthHSJfyzRLuWPcSsTqx/atZxYzgnB3sVMLNcnZ+TsBGPJJ+8kOQRrMQ\nTD0MRan9lAwpfrVjTxU7O1UnzRJH/rVDeDzFtZbn9E6k30POnCezQW1+7SpoBDz9\n+bQCtkfp+rkTJ5TmdpFOvjMZgwKBgQC+IsnurGUuymgmL9J6YXfDBFpPWqTmHOT5\nAqgSrod8erfLmlBfBIRoN+Am3fnjLW2cUcgURTVPoJM/fhQCOKB9iq7Ea/rhhYs1\nHHdD6+9Cu69qMpMFVMaOKfecz+w1hg7yzBZ3yhoZzeZCaqmpxCc4ub8qyJLDhMjc\nJMMeqYNB0wKBgAujqDJicabV827QV/u5Y7Mm6Z7RibhuEgcx4xvhV99yfhHqTN9y\nX6UhC4lcLnvBI1dkis9eD8mBMsGVLeJ6W+uS9SNoWkT1CKO+gzAI3XSZtarMQsq+\npqNauEuxDa+fveaCSrNvsOifyvx/P+XjQGHmQ5qCmkq2qVMqxmvbqnyBAoGAa1Uw\nMS/YnqVcTdJJOxSyisB2Sr2cwNom1/sL7h/gFAEiqCkgncLrC/oe61H7sqb+bXQt\nQmQfSCgZd4owuWBGGRikt/VM1uqQPxcmrI0Pr9hLmeOa4zOMMsy2Hyuw6DYZUi6r\nsEvCmDaHeY7E4DT+/yK8K+a2EvFugfeuvixrEEkCgYEAgwi//GCNPWqiiktf158c\nVUmbNfMUzJx0mSSlXFTy17DxHZEC0vexerUfBVUxEfso9VoGaw6+pFdAM6BYgYo7\n7SsbEf336NWl6yXC/VQf7Yw8Oh9jCTOKsgF8YO3YbKQBEx3KIUE3lhLwQthgzt7L\n0TNxkLp9sxKhzLkSnK+aC0Y=\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-iuswc@nitrous-application.iam.gserviceaccount.com",
+  "client_id": "104412707744882484481",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-iuswc%40nitrous-application.iam.gserviceaccount.com"
+}
