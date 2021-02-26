@@ -1,5 +1,41 @@
-# Admin Dashboard 
-# -*- coding: utf-8 -*-
+
+
+# USERS
+import pyrebase
+import pandas as pd 
+import numpy as np
+import matplotlib.pyplot as plt 
+import seaborn as sns; sns.set()
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import firestore
+import os 
+import threading
+import numpy as np
+import pandas as pd 
+import matplotlib.pyplot as plt 
+import seaborn as sns; sns.set()
+import sklearn
+import xlrd
+import xgboost
+from sklearn import linear_model
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.metrics import mean_absolute_error
+from sklearn.metrics import mean_squared_error
+from sklearn.metrics import r2_score
+from sklearn.model_selection import GridSearchCV
+import warnings
+import schedule
+import time
+warnings.filterwarnings("ignore")
+credential_path = './fire.json'
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = credential_path
+cred = credentials.Certificate(os.environ['GOOGLE_APPLICATION_CREDENTIALS'])
+firebase_admin.initialize_app(cred)
+
+
 db = firestore.client()
 Actions = list(db.collection(u'Nitrous').document(u'Actions').collection(u'Actions').stream())
 Actions = list(map(lambda x: x.to_dict(), Actions))
@@ -204,80 +240,94 @@ for k in range (len(Names)):
     except:
         print ('This User '+str(Names[k]+' has no actions'))
 
-########################################################## Dash   
+########################################################## Dash        
 app =dash.Dash()
 app = dash.Dash(__name__)
 server = app.server
-app.title = 'Nitrous Admin Dashboard'
-
-df.dropna(inplace=True)
-print('in Nitrous')
-fig1 =px.sunburst(df, path=['startYear','startMonth','title', 'topic'], values='duration')
-fig2 =px.sunburst(df, path=['startYear','startMonth','username'], values='duration')
+app.title = 'Nitrous Users Dashboard'    
 
 
 
-categories = ["Work Ethics","Student Mentality","Self Management","Technical Skills","Interpersonal","LeaderShip"]
-
-radar = go.Figure()
-for k in range(N-1):
-    radar.add_trace(go.Scatterpolar(
-          r=current_states[k],
-          theta=categories,
-          fill='toself',
-          name=Names[k] ))
-
-radar.update_layout(
-  polar=dict(
-    radialaxis=dict(
-      visible=True,
-      range=[0, 100]
-    )),
-  showlegend=True
-)
-radar.update_layout(
-    title={
-        'text': "Cumulative Users Power Bar Performance",
-        'y':0.95,
-        'x':0.48,
-        'xanchor': 'center',
-        'yanchor': 'top'
-    })
 
 
-fig1.update_layout(
-    title={
-        'text': "Cumulative Users Time Distribution",
-        'y':0.95,
-        'x':0.5,
-        'xanchor': 'center',
-        'yanchor': 'top'
-    })
 
-fig2.update_layout(
-    title={
-        'text':'Documentation Time',
-        'y':0.95,
-        'x':0.5,
-        'xanchor': 'center',
-        'yanchor': 'top'
-    })
+
+df=Final[0].iloc[:,:8]
+table = go.Figure(data=[go.Table(header=dict(values=list(df.columns),fill_color='#ee1a24',align='center'),cells=dict(values=[df['Int.Comm'],df['Ext.Comm'],df['Learn'], df['Tech'], df['Reletive'],df['Break'],df['Teach'],df['Total Hours']],fill_color='lavender',align='center'))])
+
+sunburst =px.sunburst(dataframes[0], path=['year','month','title', 'topic'], values='duration')
+
+q = pd.DataFrame(dict( r= current_states[0],theta=["Work Ethics","Student Mentality","Self Management","Technical Skills","Interpersonal","LeaderShip"]))
+radar = px.line_polar(q, r='r', theta='theta', line_close=True)
+radar.update_traces(fill='toself')
+
+
+line = go.Figure()
+line.add_trace(go.Scatter(x=dataforml[0].index, y=Final[0]['Work Ethics'].values          ,mode='lines+markers',name='Work Ethics'))
+line.add_trace(go.Scatter(x=dataforml[0].index, y=Final[0]['Student Mentality'].values    ,mode='lines+markers',name='Student Mentality'))
+line.add_trace(go.Scatter(x=dataforml[0].index, y=Final[0]['Self Management'].values      ,mode='lines+markers',name='Self Management'))
+line.add_trace(go.Scatter(x=dataforml[0].index, y=Final[0]['Technical Skills'].values     ,mode='lines+markers',name='Technical Skills'))
+line.add_trace(go.Scatter(x=dataforml[0].index, y=Final[0]['Interpersonal'].values        ,mode='lines+markers',name='Interpersonal'))
+line.add_trace(go.Scatter(x=dataforml[0].index, y=Final[0]['LeaderShip'].values           ,mode='lines+markers',name='LeaderShip'))
+
 
 app.layout=html.Div([
 
     html.Div([html.A([html.H2('Nitrous Dashboard'),html.Img(src='/assets/nitrous-logo.png')], href='http://projectnitrous.com/')],className="banner"),
+    html.Div([dcc.Dropdown(id='demo-dropdown',
+                           options=[{'label':name, 'value':i} for i,name in enumerate( Names)],value=  0),
+                                    ],style={'margin-bottom': '10px','textAlign':'center','width':'220px','margin':'auto'}),
 
 
 
-     html.Div([html.Div(dcc.Graph(id="Radar",figure=radar))],className="twelve columns"),
-     html.Div([html.Div(dcc.Graph(id="Pie1",figure=fig1))],className="five columns"),
-     html.Div([html.Div(dcc.Graph(id="Pie2",figure=fig2))],className="five columns"),
+     html.Div([html.Div(dcc.Graph(id="Radar",figure=radar))],className="five columns"),
+     html.Div([html.Div(dcc.Graph(id="SunBurst",figure=sunburst))],className="five columns"),
+     html.Div([html.Div(dcc.Graph(id="Line",figure=line))],className="ten columns"),
+     html.Div([html.Div(dcc.Graph(id="Table",figure=table))],className="ten columns")
 
-#     html.Div([html.Div(dcc.Graph(id="Violin"))],className="ten columns"),
-#     html.Div([html.Div(dcc.Graph(id="Table"))],className="ten columns")
+
 
 
   ])
+
+
+
+@app.callback(dash.dependencies.Output('Table','figure'),
+             [dash.dependencies.Input('demo-dropdown','value')]
+             )
+def update_fig(input_value):
+    df=Final[input_value].iloc[:,:8]
+    table = go.Figure(data=[go.Table(header=dict(values=list(df.columns),font=dict(color='white'),fill_color='#ee1a24',align='center'),cells=dict(values=[df['Int.Comm'],df['Ext.Comm'],df['Learn'], df['Tech'], df['Reletive'],df['Break'],df['Teach'],df['Total Hours']],fill_color='lavender',align='center'))])
+    return table
+
+@app.callback(dash.dependencies.Output('Radar','figure'),
+             [dash.dependencies.Input('demo-dropdown','value')]
+             )
+def update_fig(input_value):
+    q = pd.DataFrame(dict( r= current_states[input_value],theta=["Work Ethics","Student Mentality","Self Management","Technical Skills","Interpersonal","LeaderShip"]))
+    radar = px.line_polar(q, r='r', theta='theta', line_close=True)
+    radar.update_traces(fill='toself')    
+    return radar        
+
+@app.callback(dash.dependencies.Output('SunBurst','figure'),
+             [dash.dependencies.Input('demo-dropdown','value')]
+             )
+def update_fig(input_value):
+    sunburst =px.sunburst(dataframes[input_value], path=['year','month','title', 'topic'], values='duration')
+    return sunburst        
+
+@app.callback(dash.dependencies.Output('Line','figure'),
+             [dash.dependencies.Input('demo-dropdown','value')]
+             )
+def update_fig(input_value):
+    line = go.Figure()
+    line.add_trace(go.Scatter(x=dataforml[input_value].index, y=Final[input_value]['Work Ethics'].values          ,mode='lines+markers',name='Work Ethics'))
+    line.add_trace(go.Scatter(x=dataforml[input_value].index, y=Final[input_value]['Student Mentality'].values    ,mode='lines+markers',name='Student Mentality'))
+    line.add_trace(go.Scatter(x=dataforml[input_value].index, y=Final[input_value]['Self Management'].values      ,mode='lines+markers',name='Self Management'))
+    line.add_trace(go.Scatter(x=dataforml[input_value].index, y=Final[input_value]['Technical Skills'].values     ,mode='lines+markers',name='Technical Skills'))
+    line.add_trace(go.Scatter(x=dataforml[input_value].index, y=Final[input_value]['Interpersonal'].values        ,mode='lines+markers',name='Interpersonal'))
+    line.add_trace(go.Scatter(x=dataforml[input_value].index, y=Final[input_value]['LeaderShip'].values           ,mode='lines+markers',name='LeaderShip'))
+    return line  
 
 
 
@@ -285,5 +335,5 @@ app.layout=html.Div([
   
 
 
-while( __name__ == '__main__'):
+if __name__ == '__main__':
     app.run_server(debug=True)
